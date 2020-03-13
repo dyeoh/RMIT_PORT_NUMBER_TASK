@@ -5,6 +5,7 @@ const config = require("../config")
 const httputils = require("../utils/httputils")
 const mongoutils = require("../utils/mongoutils")
 const generalutils = require("../utils/generalutils")
+const mailutils = require("../utils/mailutils")
 
 const PORT_RANGE = generalutils.generateIntArray(config.PORT_RANGE_START, config.PORT_RANGE_END)
 
@@ -35,12 +36,15 @@ router.post('/', async (req, res)=>{
             }
             else {
               res.json(student)
+              console.log(student)
+              mailutils.sendMail(student.email, generalutils.generatePortNumberMessage(student.port)).catch(console.error)
             }
           })
           
         }
         else{
           res.json(result[0])
+          mailutils.sendMail(result[0].email, generalutils.generatePortNumberMessage(result[0].port)).catch(console.error)
         }
         
       }

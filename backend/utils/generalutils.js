@@ -20,4 +20,8 @@ const getTwoRandFromArray = (array) => {
   return [array[firstPortIndex],array[secondPortIndex]]
 }
 
-module.exports = { checkRmitStudent, generateIntArray, getTwoRandFromArray }
+const generatePortNumberMessage = (portArray) => {
+  return `Your port numbers are ${portArray.toString()}`
+}
+
+module.exports = { checkRmitStudent, generateIntArray, getTwoRandFromArray, generatePortNumberMessage }

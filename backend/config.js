@@ -3,7 +3,7 @@
 const dotenv = require('dotenv')
 dotenv.config()
 
-const { PORT, MONGO_URL, PORT_RANGE_START, PORT_RANGE_END } = process.env
+const { PORT, MONGO_URL, PORT_RANGE_START, PORT_RANGE_END, OUTLOOK_EMAIL, OUTLOOK_PASS, OUTLOOK_NAME } = process.env
 
 if(!PORT){
   console.error("Please specify a port number in your .env")
@@ -20,9 +20,17 @@ if(!PORT_RANGE_START || !PORT_RANGE_END){
   process.kill(process.pid, 'SIGTERM')
 }
 
+if(!OUTLOOK_EMAIL || !OUTLOOK_PASS || !OUTLOOK_NAME ){
+  console.error("Please specify your outlook details in your .env")
+  process.kill(process.pid, 'SIGTERM')
+}
+
 module.exports = {
   PORT,
   MONGO_URL,
   PORT_RANGE_START,
-  PORT_RANGE_END
+  PORT_RANGE_END,
+  OUTLOOK_EMAIL,
+  OUTLOOK_PASS,
+  OUTLOOK_NAME
 }
