@@ -26,21 +26,23 @@ router.post('/', async (req, res)=>{
             return item
           }})
 
-          console.log(takenPorts)
-
-          let ports = generalutils.getTwoRandFromArray(filteredPorts)
+          if(filteredPorts.length < 2){
+            httputils.resBadRequest(res, "No available ports remaining")
+          }
+          else{
+            let ports = generalutils.getTwoRandFromArray(filteredPorts)
           
-          mongoutils.addStudent(req.body.email, ports, (err, student) => {
-            if (err) {
-              throw new Error("Failed to add student.")
-            }
-            else {
-              res.json(student)
-              console.log(student)
-              mailutils.sendMail(student.email, generalutils.generatePortNumberMessage(student.port)).catch(console.error)
-            }
-          })
-          
+            mongoutils.addStudent(req.body.email, ports, (err, student) => {
+              if (err) {
+                throw new Error("Failed to add student.")
+              }
+              else {
+                res.json(student)
+                console.log(student)
+                mailutils.sendMail(student.email, generalutils.generatePortNumberMessage(student.port)).catch(console.error)
+              }
+            })
+          }
         }
         else{
           res.json(result[0])
