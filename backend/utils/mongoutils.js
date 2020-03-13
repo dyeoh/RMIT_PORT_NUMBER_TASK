@@ -1,4 +1,4 @@
-var Students = require('../models/Students');
+const Students = require('../models/Students');
 
 const getStudent = (email) => {
   if(email){
